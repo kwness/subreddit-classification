@@ -1,168 +1,29 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 3: Web APIs & NLP
+# Project 3 - Improving Online Advertising via Classification - Kyle Ness
 
-### Description
+If a company wants to be successful in marketing their products to prospective customers, they must know their audience. The founders at Everything Meal Prep believe that wholeheartedly, and for that reason, they have gone the distance of hiring us consultants at Online Analysis Co. to help them towards this success. They have done this in the hopes that via our data-driven insights and our ability to create an automated classification system, their meal plan advertisements will only reach customers with matching diets / food interests going forward. This should save them money that would otherwise be spent on ineffective advertising, and conversely, potentially boost sales (if they committed to the same amount of advertising spend). 
 
-In week four we've learned about a few different classifiers. In week five we'll learn about webscraping, APIs, and Natural Language Processing (NLP). This project will put those skills to the test.
+Specifically, Everything Meal Prep has tasked us with improving their online advertisements hosted on reddit. As their name suggests, they provide customers meal plans consisting of virtually any ingredients. For this task, they want us to focus solely on aiding the performance of their carnivore and vegan meal plan lines. To this end, we must build an accurate binary classification system, determining whether an online person is a carnivore or a vegan. We will do this by analyzing data that we scraped from the subreddits (of Reddit.com) r/vegan and r/carnivore. Hopefully by using natural language processing techniques and testing various classification models, we will arrive at a system that can perfrom this task with the utmost accuracy.
 
-For project 3, your goal is two-fold:
-1. Using [Pushshift's](https://github.com/pushshift/api) API, you'll collect posts from two subreddits of your choosing.
-2. You'll then use NLP to train a classifier on which subreddit a given post came from. This is a binary classification problem.
+pecifically, Naive Bayes and logistic regression models will be constructed and evaluated for this task. We also aim to provide Everything Meal Prep with recommendations about how to go about their marketing.
 
+### Dictionary
 
-#### About the API
-
-Pushshift's API is fairly straightforward. For example, if I want the posts from [`/r/boardgames`](https://www.reddit.com/r/boardgames), all I have to do is use the following url: https://api.pushshift.io/reddit/search/submission?subreddit=boardgames
-
-To help you get started, we have a primer video on how to use the API: https://youtu.be/AcrjEWsMi_E
-
-**NOTE:** Pushshift now limits you to 100 posts per request (no longer the 500 in the screencast).
-
----
-
-### Requirements
-
-- Gather and prepare your data using the `requests` library.
-- **Create and compare two models**. Any two classifiers at least of your choosing: random forest, logistic regression, KNN, SVM, etc.
-- A Jupyter Notebook with your analysis for a peer audience of data scientists.
-- An executive summary of your results.
-- A short presentation outlining your process and findings for a semi-technical audience.
-
-**Pro Tip:** You can find a good example executive summary [here](https://www.proposify.biz/blog/executive-summary).
-
----
-
-### Necessary Deliverables / Submission
-
-- Code must be in at least one clearly commented Jupyter Notebook.
-- A readme/executive summary in markdown.
-- You must submit your slide deck as a PDF.
-- Materials must be submitted by **10:00 AM (EST) on Friday, July 1**.
-
----
-
-## Rubric
-Your instructors will evaluate your project (for the most part) using the following criteria.  You should make sure that you consider and/or follow most if not all of the considerations/recommendations outlined below **while** working through your project.
-
-For Project 3 the evaluation categories are as follows:<br>
-**The Data Science Process**
-- Problem Statement
-- Data Collection
-- Data Cleaning & EDA
-- Preprocessing & Modeling
-- Evaluation and Conceptual Understanding
-- Conclusion and Recommendations
-
-**Organization and Professionalism**
-- Organization
-- Visualizations
-- Python Syntax and Control Flow
-- Presentation
-
-**Scores will be out of 30 points based on the 10 categories in the rubric.** <br>
-*3 points per section*<br>
-
-| Score | Interpretation |
-| --- | --- |
-| **0** | *Project fails to meet the minimum requirements for this item.* |
-| **1** | *Project meets the minimum requirements for this item, but falls significantly short of portfolio-ready expectations.* |
-| **2** | *Project exceeds the minimum requirements for this item, but falls short of portfolio-ready expectations.* |
-| **3** | *Project meets or exceeds portfolio-ready expectations; demonstrates a thorough understanding of every outlined consideration.* |
+|Feature             |Type  |Dataset          |Description                                                                           |
+|--------------------|------|-----------------|--------------------------------------------------------------------------------------|
+|subreddit           |string|vegan, carnivore |Which subreddit, r/vegan or r/carnivore, that the post originated from                |
+|title               |string|vegan, carnivore |Title of post                                                                         |
+|selftext            |string|vegan, carnivore |The description text contained within the post, i.e., the body of the post            |
 
 
-### The Data Science Process
+### Analysis - Summary
+Analysis was conducted on two datasets containing roughly 1,050 observations each on 3 features (1 dependent, 2 independent). These datasets were scraped and assembled from recent posts on r/carnivore and r/vegan, opposing subreddits of the popular website reddit.com. After data cleaning, EDA, and distribution plotting, 2 different classification models were explored, namely: Naive Bayes and Logistic Regression. Both of these models used the sklearn library's CountVectorizer to transform the combined dataset (vegan.csv and carnivore.csv were concatenated) into columns of post word counts, making for a dataframe of well over 10,000 features. This task was a feat in natural language processing. In the end, the Naive Bayes model performed better for this task, although both were high-scoring and very acceptable replacements over the null model whose baseline accuracy was 50.12%. Here, the Naive Bayes model had an accuracy of 95.47% and recall of 97.13%
 
-**Problem Statement**
-- Is it clear what the goal of the project is?
-- What type of model will be developed?
-- How will success be evaluated?
-- Is the scope of the project appropriate?
-- Is it clear who cares about this or why this is important to investigate?
-- Does the student consider the audience and the primary and secondary stakeholders?
+### Conclusion and Recommendations
+Given the results of our model creation and evaluation above, it is evident that Everything Meal Prep can indeed rely on an NLP classification system reliant on user post content for highly accurate targeting of potential customers. While the baseline accuracy rate was 50.12%, our best model, the Naive Bayes estimator paired with a CountVectorizer with tuned parameters, boasts a 95.47% accuracy rate and a 97.13% recall rate which are each very attractive for the task at hand. Everything Meal Prep should go forward with utilizing this model immediately to save on advertising spend and / or boost sales. They can know their audience like the back of their hand using this system, which is what they were initially striving for. The stakeholders in Everything Meal Prep will benefit greatly from the bolstered performance in online marketing that this system promises, as company value will increase on potential higher earnings.
 
-**Data Collection**
-- Was enough data gathered to generate a significant result?
-- Was data collected that was useful and relevant to the project?
-- Was data collection and storage optimized through custom functions, pipelines, and/or automation?
-- Was thought given to the server receiving the requests such as considering number of requests per second?
+Further, there are some insights gathered from the analysis here. When it comes to delivering these advertisements, they should be tailored to the nature of the recipients. As observed above, posts are generally longer on r/vegan, and seem to contain discussions of animals, people, feelings, and more that may fall outside the realm of just diets (going by common words used). These users are perhaps more conscientious, and a well-targeted ad may need to be conveyed in a savvier, more thought-provoking manner. Beyond these assumptions, the company should also simply use these common words sort of like buzzwords / points of fixation. Mentioning how Everything Meal Prep's "Super Vegan" diet helps preserve wildlife reserves, for example, may goad a vegan to try the product.
 
-**Data Cleaning and EDA**
-- Are missing values imputed/handled appropriately?
-- Are distributions examined and described?
-- Are outliers identified and addressed?
-- Are appropriate summary statistics provided?
-- Are steps taken during data cleaning and EDA framed appropriately?
-- Does the student address whether or not they are likely to be able to answer their problem statement with the provided data given what they've discovered during EDA?
+Future steps in aiding Everything Meal Prep in this endeavor would perhaps be performing more grid searches for even better hyperparamters, choosing and evaluating estimators not seen here, and collecting more data from reddit. Each of these may potentially lead to an even better-performing model than the Naive Bayes one found here.
 
-**Preprocessing and Modeling**
-- Is text data successfully converted to a matrix representation?
-- Are methods such as stop words, stemming, and lemmatization explored?
-- Does the student properly split and/or sample the data for validation/training purposes?
-- Does the student test and evaluate a variety of models to identify a production algorithm (**AT MINIMUM:** two models)?
-- Does the student defend their choice of production model relevant to the data at hand and the problem?
-- Does the student explain how the model works and evaluate its performance successes/downfalls?
-
-**Evaluation and Conceptual Understanding**
-- Does the student accurately identify and explain the baseline score?
-- Does the student select and use metrics relevant to the problem objective?
-- Does the student interpret the results of their model for purposes of inference?
-- Is domain knowledge demonstrated when interpreting results?
-- Does the student provide appropriate interpretation with regards to descriptive and inferential statistics?
-
-**Conclusion and Recommendations**
-- Does the student provide appropriate context to connect individual steps back to the overall project?
-- Is it clear how the final recommendations were reached?
-- Are the conclusions/recommendations clearly stated?
-- Does the conclusion answer the original problem statement?
-- Does the student address how findings of this research can be applied for the benefit of stakeholders?
-- Are future steps to move the project forward identified?
-
-
-### Organization and Professionalism
-
-**Project Organization**
-- Are modules imported correctly (using appropriate aliases)?
-- Are data imported/saved using relative paths?
-- Does the README provide a good executive summary of the project?
-- Is markdown formatting used appropriately to structure notebooks?
-- Are there an appropriate amount of comments to support the code?
-- Are files & directories organized correctly?
-- Are there unnecessary files included?
-- Do files and directories have well-structured, appropriate, consistent names?
-
-**Visualizations**
-- Are sufficient visualizations provided?
-- Do plots accurately demonstrate valid relationships?
-- Are plots labeled properly?
-- Are plots interpreted appropriately?
-- Are plots formatted and scaled appropriately for inclusion in a notebook-based technical report?
-
-**Python Syntax and Control Flow**
-- Is care taken to write human readable code?
-- Is the code syntactically correct (no runtime errors)?
-- Does the code generate desired results (logically correct)?
-- Does the code follows general best practices and style guidelines?
-- Are Pandas functions used appropriately?
-- Are `sklearn` and `NLTK` methods used appropriately?
-
-**Presentation**
-- Is the problem statement clearly presented?
-- Does a strong narrative run through the presentation building toward a final conclusion?
-- Are the conclusions/recommendations clearly stated?
-- Is the level of technicality appropriate for the intended audience?
-- Is the student substantially over or under time?
-- Does the student appropriately pace their presentation?
-- Does the student deliver their message with clarity and volume?
-- Are appropriate visualizations generated for the intended audience?
-- Are visualizations necessary and useful for supporting conclusions/explaining findings?
-
-
----
-
-### Why did we choose this project for you?
-This project covers three of the biggest concepts we cover in the class: Classification Modeling, Natural Language Processing and Data Wrangling/Acquisition.
-
-Part 1 of the project focuses on **Data wrangling/gathering/acquisition**. This is a very important skill as not all the data you will need will be in clean CSVs or a single table in SQL.  There is a good chance that wherever you land you will have to gather some data from some unstructured/semi-structured sources; when possible, requesting information from an API, but sometimes scraping it because they don't have an API (or it's terribly documented).
-
-Part 2 of the project focuses on **Natural Language Processing** and converting standard text data (like Titles and Comments) into a format that allows us to analyze it and use it in modeling.
-
-Part 3 of the project focuses on **Classification Modeling**.  Given that project 2 was a regression focused problem, we needed to give you a classification focused problem to practice the various models, means of assessment and preprocessing associated with classification.   
+### Datasets Source:
+Obtained from reddit.com using the Pushshift API: https://github.com/pushshift/api:
