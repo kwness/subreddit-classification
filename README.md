@@ -1,4 +1,4 @@
-# Project 3 - Improving Online Advertising via Classification - Kyle Ness
+# Improving Reddit Advertising via Classification - Kyle Ness
 
 If a company wants to be successful in marketing their products to prospective customers, they must know their audience. The founders at Everything Meal Prep believe that wholeheartedly, and for that reason, they have gone the distance of hiring us consultants at Online Analysis Co. to help them towards this success. They have done this in the hopes that via our data-driven insights and our ability to create an automated classification system, their meal plan advertisements will only reach customers with matching diets / food interests going forward. This should save them money that would otherwise be spent on ineffective advertising, and conversely, potentially boost sales (if they committed to the same amount of advertising spend). 
 
